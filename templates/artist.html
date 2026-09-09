@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{.Artist.Name}} — Groupie Tracker</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+ 
+  <header>
+    <div class="header-inner">
+      <div class="logo">Groupie<span>Tracker</span></div>
+      <form class="search-form" method="GET" action="/search">
+        <input type="text" name="q" placeholder="Search artists or bands..." />
+        <button type="submit">Search</button>
+      </form>
+    </div>
+  </header>
+ 
+  <main>
+ 
+    <a class="back-link" href="/">&#8592; Back to all artists</a>
+ 
+    <div class="artist-detail">
+ 
+      <div class="artist-poster">
+        <img src="{{.Artist.Image}}" alt="{{.Artist.Name}}" />
+      </div>
+ 
+      <div class="artist-info">
+ 
+        <div>
+          <h1 class="artist-name">{{.Artist.Name}}</h1>
+          <div class="artist-tagline">
+            <div class="tagline-item">
+              <span class="tagline-label">Active since</span>
+              <span class="tagline-value">{{.Artist.CreationDate}}</span>
+            </div>
+            <div class="tagline-item">
+              <span class="tagline-label">First album</span>
+              <span class="tagline-value">{{.Artist.FirstAlbum}}</span>
+            </div>
+            <div class="tagline-item">
+              <span class="tagline-label">Members</span>
+              <span class="tagline-value">{{len .Artist.Members}}</span>
+            </div>
+          </div>
+        </div>
+ 
+        <div class="info-panel">
+          <p class="info-panel-title">Band Members</p>
+          <ul class="members-list">
+            {{range .Artist.Members}}
+            <li>{{.}}</li>
+            {{end}}
+          </ul>
+        </div>
+ 
+        <div class="info-panel">
+          <p class="info-panel-title">Concert Locations &amp; Dates</p>
+          {{if .Relation.DatesLocations}}
+          <ul class="concerts-list">
+            {{range $location, $dates := .Relation.DatesLocations}}
+            <li class="concert-item">
+              <span class="concert-location">{{$location}}</span>
+              <span class="concert-dates">
+                {{range $dates}}
+                <span class="date-badge">{{.}}</span>
+                {{end}}
+              </span>
+            </li>
+            {{end}}
+          </ul>
+          {{else}}
+          <p style="color:rgba(245,245,240,0.4); font-size:0.9rem;">No concert data available.</p>
+          {{end}}
+        </div>
+ 
+      </div>
+    </div>
+ 
+  </main>
+ 
+  <footer>Groupie Tracker &mdash; reboot01 project</footer>
+ 
+</body>
+</html>
+ 

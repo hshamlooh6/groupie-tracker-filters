@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Groupie Tracker</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+
+  <header>
+    <div class="header-inner">
+      <div class="logo">Groupie<span>Tracker</span></div>
+      <form class="search-form" method="GET" action="/search">
+        <input
+          type="text"
+          name="q"
+          placeholder="Search artists or bands..."
+          value="{{.Query}}"
+        />
+        <button type="submit">Search</button>
+      </form>
+    </div>
+  </header>
+
+  <main>
+
+    {{if .Query}}
+    <div class="search-notice">
+      <span>Showing results for &ldquo;<strong>{{.Query}}</strong>&rdquo; — {{len .Artists}} found</span>
+      <a href="/">Clear search</a>
+    </div>
+    {{end}}
+
+   <form method="GET" action="/" class="filters-form">
+  <div class="filter-group">
+    <label>Creation Year</label>
+    From <input type="number" name="creation_from" value="{{if .CreationFrom}}{{.CreationFrom}}{{end}}">
+    To <input type="number" name="creation_to" value="{{if .CreationTo}}{{.CreationTo}}{{end}}">
+  </div>
+
+  <div class="filter-group">
+    <label>First Album Year</label>
+    From <input type="number" name="album_from" value="{{if .AlbumFrom}}{{.AlbumFrom}}{{end}}">
+    To <input type="number" name="album_to" value="{{if .AlbumTo}}{{.AlbumTo}}{{end}}">
+  </div>
+
+  <div class="filter-group">
+    <label>Number of Members</label>
+    <div class="checkbox-row">
+      {{range .MemberOptions}}
+      <label class="checkbox-item">
+        <input type="checkbox" name="members" value="{{.}}" {{if $.HasMember .}}checked{{end}}> {{.}}
+      </label>
+      {{end}}
+    </div>
+  </div>
+
+  <div class="filter-group">
+    <label>Concert Locations</label>
+    <div class="checkbox-row scrollable">
+      {{range .LocationOptions}}
+      <label class="checkbox-item">
+        <input type="checkbox" name="locations" value="{{.}}" {{if $.HasLocation .}}checked{{end}}> {{.}}
+      </label>
+      {{end}}
+    </div>
+  </div>
+
+  <button type="submit">Apply Filters</button>
+  <a href="/">Clear filters</a>
+</form>
+
+    <p class="section-title">All Artists</p>
+
+    {{if .Artists}}
+    <div class="artist-grid">
+      {{range .Artists}}
+      <div class="card">
+        <div class="card-image">
+          <img src="{{.Image}}" alt="{{.Name}}" />
+        </div>
+        <div class="card-body">
+          <div class="card-name">{{.Name}}</div>
+          <div class="card-meta">Since {{.CreationDate}} &nbsp;·&nbsp; First album {{.FirstAlbum}}</div>
+          <div class="card-members">
+            {{range $i, $m := .Members}}{{if $i}}, {{end}}{{$m}}{{end}}
+          </div>
+          <a class="card-link" href="/artist?id={{.ID}}">View Profile</a>
+        </div>
+      </div>
+      {{end}}
+    </div>
+
+    {{else}}
+    <div class="no-results">
+      <strong>No results</strong>
+      Try different filters or <a href="/" style="color:var(--gold)">browse all artists</a>.
+    </div>
+    {{end}}
+
+  </main>
+
+  <footer>Groupie Tracker &mdash; reboot01 project</footer>
+
+</body>
+</html>
