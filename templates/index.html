@@ -32,44 +32,42 @@
     </div>
     {{end}}
 
-   <form method="GET" action="/" class="filters-form">
-  <div class="filter-group">
-    <label>Creation Year</label>
-    From <input type="number" name="creation_from" value="{{if .CreationFrom}}{{.CreationFrom}}{{end}}">
-    To <input type="number" name="creation_to" value="{{if .CreationTo}}{{.CreationTo}}{{end}}">
-  </div>
+    <form method="GET" action="/" class="filters-form">
+      <div class="filter-group">
+        <label>Creation Year</label>
+        From <input type="number" name="creation_from" value="{{if .CreationFrom}}{{.CreationFrom}}{{end}}">
+        To <input type="number" name="creation_to" value="{{if .CreationTo}}{{.CreationTo}}{{end}}">
+      </div>
 
-  <div class="filter-group">
-    <label>First Album Year</label>
-    From <input type="number" name="album_from" value="{{if .AlbumFrom}}{{.AlbumFrom}}{{end}}">
-    To <input type="number" name="album_to" value="{{if .AlbumTo}}{{.AlbumTo}}{{end}}">
-  </div>
+      <div class="filter-group">
+        <label>First Album Year</label>
+        From <input type="number" name="album_from" value="{{if .AlbumFrom}}{{.AlbumFrom}}{{end}}">
+        To <input type="number" name="album_to" value="{{if .AlbumTo}}{{.AlbumTo}}{{end}}">
+      </div>
 
-  <div class="filter-group">
-    <label>Number of Members</label>
-    <div class="checkbox-row">
-      {{range .MemberOptions}}
-      <label class="checkbox-item">
-        <input type="checkbox" name="members" value="{{.}}" {{if $.HasMember .}}checked{{end}}> {{.}}
-      </label>
-      {{end}}
-    </div>
-  </div>
+      <div class="filter-group">
+        <label>Number of Members</label>
+        <div class="checkbox-row">
+          {{range .MemberOptions}}
+          <label class="checkbox-item">
+            <input type="checkbox" name="members" value="{{.}}" {{if $.HasMember .}}checked{{end}}> {{.}}
+          </label>
+          {{end}}
+        </div>
+      </div>
 
-  <div class="filter-group">
-    <label>Concert Locations</label>
-    <div class="checkbox-row scrollable">
-      {{range .LocationOptions}}
-      <label class="checkbox-item">
-        <input type="checkbox" name="locations" value="{{.}}" {{if $.HasLocation .}}checked{{end}}> {{.}}
-      </label>
-      {{end}}
-    </div>
-  </div>
+      <div class="filter-group">
+        <label>Concert Locations <span class="filter-hint">(Ctrl/Cmd+click to select multiple)</span></label>
+        <select name="locations" class="location-select" multiple size="10">
+          {{range .LocationOptions}}
+          <option value="{{.}}" {{if $.HasLocation .}}selected{{end}}>{{.}}</option>
+          {{end}}
+        </select>
+      </div>
 
-  <button type="submit">Apply Filters</button>
-  <a href="/">Clear filters</a>
-</form>
+      <button type="submit">Apply Filters</button>
+      <a href="/">Clear filters</a>
+    </form>
 
     <p class="section-title">All Artists</p>
 

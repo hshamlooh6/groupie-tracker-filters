@@ -496,6 +496,13 @@ footer {
   margin-bottom: 0.3rem;
 }
 
+.filter-hint {
+  text-transform: none;
+  letter-spacing: normal;
+  font-size: 0.72rem;
+  color: rgba(245,245,240,0.4);
+}
+
 .filter-group input[type="number"] {
   width: 90px;
   padding: 0.4rem 0.6rem;
@@ -512,14 +519,6 @@ footer {
   width: 100%;
 }
 
-.checkbox-row.scrollable {
-  max-height: 180px;
-  overflow-y: auto;
-  padding: 0.6rem;
-  background: rgba(0,0,0,0.2);
-  border: 1px solid rgba(212,175,55,0.15);
-}
-
 .checkbox-item {
   display: flex;
   align-items: center;
@@ -531,6 +530,37 @@ footer {
 
 .checkbox-item input[type="checkbox"] {
   accent-color: var(--gold);
+}
+
+.location-select {
+  width: 100%;
+  background: var(--dark);
+  border: 1px solid rgba(212,175,55,0.4);
+  color: var(--white);
+  font-family: inherit;
+  font-size: 0.85rem;
+  padding: 0.4rem;
+}
+
+.location-select option {
+  padding: 0.35rem 0.5rem;
+}
+
+.location-select option:checked {
+  background: var(--gold);
+  color: var(--dark);
+}
+
+.location-select::-webkit-scrollbar {
+  width: 10px;
+}
+
+.location-select::-webkit-scrollbar-track {
+  background: var(--dark);
+}
+
+.location-select::-webkit-scrollbar-thumb {
+  background: var(--gold);
 }
 
 .filters-form button[type="submit"] {
